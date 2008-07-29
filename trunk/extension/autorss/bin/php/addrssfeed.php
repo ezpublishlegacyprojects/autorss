@@ -3,7 +3,7 @@
 //
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 // SOFTWARE NAME: eZ Publish Auto RSS extension
-// SOFTWARE RELEASE: 1.x
+// SOFTWARE RELEASE: 2.x
 // COPYRIGHT NOTICE: Copyright (C) 2007-2008 Kristof Coomans <http://blog.kristofcoomans.be>
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
@@ -25,10 +25,10 @@
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 
-include_once( 'kernel/classes/ezscript.php' );
-include_once( 'lib/ezutils/classes/ezcli.php' );
 
-$cli =& eZCLI::instance();
+require 'autoload.php';
+
+$cli = eZCLI::instance();
 
 $scriptSettings = array();
 $scriptSettings['description'] = 'Add RSS feeds';
@@ -36,7 +36,7 @@ $scriptSettings['use-session'] = true;
 $scriptSettings['use-modules'] = true;
 $scriptSettings['use-extensions'] = true;
 
-$script =& eZScript::instance( $scriptSettings );
+$script = eZScript::instance( $scriptSettings );
 $script->startup();
 
 $config = '[path-offset:]';
@@ -58,7 +58,6 @@ $args = $options['arguments'];
 
 $class = array_shift( $args );
 
-include_once( 'kernel/classes/ezcontentobjecttreenode.php' );
 $params = array(
     'ClassFilterType' => 'include',
     'ClassFilterArray' => array( $class ),
@@ -67,9 +66,8 @@ $params = array(
 
 $script->setIterationData( '.', '~' );
 
-$nodes =& eZContentObjectTreeNode::subtree( $params, 1 );
+$nodes = eZContentObjectTreeNode::subtreeByNodeID( $params, 1 );
 
-include_once( 'extension/autorss/eventtypes/event/autorss/autorsstype.php' );
 $nodeCount = count( $nodes );
 $script->resetIteration( $nodeCount );
 $cli->output( '' );
