@@ -113,7 +113,7 @@ class AutoRSSType extends eZWorkflowEventType
         {
             if ( eZSys::isShellExecution() == false )
             {
-                return EZ_WORKFLOW_TYPE_STATUS_DEFERRED_TO_CRON_REPEAT;
+                return eZWorkflowType::STATUS_DEFERRED_TO_CRON_REPEAT;
             }
         }
 
@@ -122,7 +122,7 @@ class AutoRSSType extends eZWorkflowEventType
         $pathOffset = $this->attributeDecoder( $event, 'path_offset' );
         $this->createFeedIfNeeded( $mainNode, $attributeMappings, $pathOffset );
 
-        return EZ_WORKFLOW_TYPE_STATUS_ACCEPTED;
+        return eZWorkflowType::STATUS_ACCEPTED;
     }
 
     static function createFeedIfNeeded( $node, $attributeMappings, $pathOffset )
