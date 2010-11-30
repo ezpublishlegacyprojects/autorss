@@ -28,7 +28,7 @@ class AutoRSSType extends eZWorkflowEventType
 {
     function AutoRSSType()
     {
-        $this->eZWorkflowEventType( 'autorss', ezi18n( 'extension/autorss', 'Auto RSS' ) );
+        $this->eZWorkflowEventType( 'autorss', ezpI18n::tr( 'extension/autorss', 'Auto RSS' ) );
         $this->setTriggerTypes( array( 'content' => array( 'publish' => array( 'after' ) ) ) );
     }
 
